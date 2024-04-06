@@ -18,6 +18,7 @@ include_once './includes/db.php';
 
 <body>
   <div class="w-100 h-100 p-5">
+    <h2>-=-=- Simple Book Catalog -=-=-</h2>
     <div class="d-flex flex-column gap-3">
       <div class="d-flex justify-content-end">
         <button class="btn btn-success px-5" data-bs-toggle="modal" data-bs-target="#addModal">Add</button>
@@ -38,8 +39,10 @@ include_once './includes/db.php';
           <?php
           $sql = "SELECT * FROM catalog";
           $result = $db->process_db($sql, [], true);
+          $count = 0;
 
           foreach ($result as $row) {
+            $count++;
           ?>
             <tr>
               <td><?php echo $row["title"] ?></td>
@@ -49,9 +52,21 @@ include_once './includes/db.php';
               <td><?php echo $row["year_published"] ?></td>
               <td><?php echo $row["category"] ?></td>
               <td>
-                <div class="d-flex flex-row gap-1">
+                <div class="d-flex flex-row gap-1" style="width: fit-content">
                   <button class="btn btn-secondary" onclick="editBook(<?php echo $row['id'] ?>)" data-bs-toggle="modal" data-bs-target="#editModal">EDIT</button>
                   <button class="btn btn-danger" onclick="deleteBook(<?php echo $row['id'] ?>)">DELETE</button>
+                </div>
+              </td>
+            </tr>
+          <?php
+          }
+
+          if($count <= 0){
+          ?>
+            <tr>
+              <td colspan="7">
+                <div class="w-100 text-center">
+                  No Data.
                 </div>
               </td>
             </tr>
