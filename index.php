@@ -1,3 +1,8 @@
+<?php
+include_once './includes/db.php';
+
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -12,7 +17,7 @@
 </head>
 
 <body>
-  <div class="w-100 h-100 bg-info p-5">
+  <div class="w-100 h-100 p-5">
     <div class="d-flex flex-column gap-3">
       <div class="d-flex justify-content-end">
         <button class="btn btn-success px-5">Add</button>
@@ -20,35 +25,48 @@
       <table class="table w-100">
         <thead>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">TITLE</th>
+            <th scope="col">ISBN</th>
+            <th scope="col">AUTHOR</th>
+            <th scope="col">PUBLISHER</th>
+            <th scope="col">YEAR PUBLISHED</th>
+            <th scope="col">CATEGORY</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
+          <?php
+          $sql = "SELECT * FROM catalog";
+          $result = $db->process_db($sql, [], true);
+
+          foreach ($result as $row) {
+          ?>
+            <tr>
+              <td><?php echo $row["title"] ?></td>
+              <td><?php echo $row["isbn"] ?></td>
+              <td><?php echo $row["author"] ?></td>
+              <td><?php echo $row["publisher"] ?></td>
+              <td><?php echo $row["year_published"] ?></td>
+              <td><?php echo $row["category"] ?></td>
+              <td>
+                <div class="d-flex flex-row gap-1">
+                  <button class="btn btn-secondary">EDIT</button>
+                  <button class="btn btn-secondary">DEL</button>
+                </div>
+              </td>
+            </tr>
+          <?php
+          }
+          ?>
+
         </tbody>
       </table>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
+<script>
+
+</script>
 
 </html>
